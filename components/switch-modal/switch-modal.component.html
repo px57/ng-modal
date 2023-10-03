@@ -6,7 +6,8 @@
         <div
             (click)="clickToViewContainer($event)" 
             class="viewContainer">
-            {{ config | json }}
+            <ng-container *ngComponentOutlet="config.component"></ng-container>
+
         </div>
     </div>
 </ng-container>
