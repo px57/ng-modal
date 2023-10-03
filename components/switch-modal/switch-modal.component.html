@@ -1,0 +1,12 @@
+
+<ng-container *ngIf="config !== undefined">
+    <div 
+        (click)="clickToBackgroundContainer()"
+        class="modalBackgroundContainer">
+        <div
+            (click)="clickToViewContainer($event)" 
+            class="viewContainer">
+            {{ config | json }}
+        </div>
+    </div>
+</ng-container>
