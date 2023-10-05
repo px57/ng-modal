@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { Route, ActivatedRoute } from '@angular/router';
 import { SwitchModalService } from '../../services/switch-modal.service';
 import { ModalConfig } from '../../types';
@@ -22,13 +22,44 @@ export class SwitchModalComponent {
   /**
    * @description: 
    */
+  public myInjector: Injector | undefined = undefined;
+
+  /**
+   * @description:
+   */
+  public myContent: any = {
+    SigninSuccess: (data: string) => {
+      alert ('salut grosse salope.');
+    }
+  };
+
+  /**
+   * @description: 
+   */
   public config: ModalConfig | undefined = undefined;
 
+  /**
+   * @description: 
+   */
+  public  myInputs = {'label': 'Complete'};
+
   constructor(
+    private injector: Injector,
     private route: ActivatedRoute,
     private switchModalService: SwitchModalService,
   ) {
-   
+    this.myInjector = Injector.create({
+      providers: [{ 
+        provide: 'data', 
+        useValue: 'Données passées au composant dynamique' 
+      }],
+      parent: this.injector
+    });
+    this.myContent = {
+      SigninSuccess: (data: string) => {
+        alert ('salut grosse salope.');
+      }
+    };   
   }
 
   /**
@@ -36,6 +67,7 @@ export class SwitchModalComponent {
    */
   public ngOnInit() {
     this.bindQueryParams();
+    console.log(this);
   }
 
   /**
@@ -64,6 +96,19 @@ export class SwitchModalComponent {
     }
     this.switch = switch_name;
     this.config = this.switchModalService.get_config(switch_name);
+    this.myInjector = Injector.create({
+      providers: [{ 
+        provide: 'data', 
+        useValue: 'Données passées au composant dynamique' 
+      }],
+      parent: this.injector
+    });
+    this.myContent = {
+      SigninSuccess: (data: string) => {
+        alert ('salut grosse salope.');
+      }
+    };
+    console.log(this.myContent);
   }
 
   /*
@@ -109,5 +154,12 @@ export class SwitchModalComponent {
    */
   public init($event: any): void {
     this.component = $event;
+  }
+
+  /**
+   * @description: 
+   */
+  public SigninSuccess(): void {
+    alert ('aoeuaoeu');
   }
 }
