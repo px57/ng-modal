@@ -84,7 +84,6 @@ export class SwitchModalService {
       return; 
     }
     this.config_list.push(config);
-    console.log(this.config_list)
   }
 
   /**

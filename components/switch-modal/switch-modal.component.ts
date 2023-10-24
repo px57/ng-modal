@@ -67,7 +67,6 @@ export class SwitchModalComponent {
    */
   public ngOnInit() {
     this.bindQueryParams();
-    console.log(this);
   }
 
   /**
@@ -108,7 +107,6 @@ export class SwitchModalComponent {
         alert ('salut grosse salope.');
       }
     };
-    console.log(this.myContent);
   }
 
   /*
