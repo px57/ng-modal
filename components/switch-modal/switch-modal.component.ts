@@ -1,7 +1,7 @@
-import { Component, Injector } from '@angular/core';
-import { Route, ActivatedRoute } from '@angular/router';
-import { SwitchModalService } from '../../services/switch-modal.service';
-import { ModalConfig } from '../../types';
+import { Component, Injector } from '@angular/core'
+import { Route, ActivatedRoute } from '@angular/router'
+import { SwitchModalService } from '../../services/switch-modal.service'
+import { ModalConfig } from '../../types'
 
 @Component({
   selector: 'app-switch-modal',
@@ -12,122 +12,126 @@ export class SwitchModalComponent {
   /**
    * @description:
    */
-  public switch: string = ``;
+  public switch: string = ``
 
   /**
    * @description:
    */
-  public component: any;
+  public component: any
 
   /**
-   * @description: 
+   * @description:
    */
-  public myInjector: Injector | undefined = undefined;
+  public myInjector: Injector | undefined = undefined
 
   /**
    * @description:
    */
   public myContent: any = {
     SigninSuccess: (data: string) => {
-      alert ('salut grosse salope.');
+      alert('salut grosse salope.')
     }
-  };
+  }
 
   /**
-   * @description: 
+   * @description:
    */
-  public config: ModalConfig | undefined = undefined;
+  public config: ModalConfig | undefined = undefined
 
   /**
-   * @description: 
+   * @description:
    */
-  public  myInputs = {'label': 'Complete'};
+  public myInputs = { label: 'Complete' }
 
   constructor(
     private injector: Injector,
     private route: ActivatedRoute,
-    private switchModalService: SwitchModalService,
+    private switchModalService: SwitchModalService
   ) {
     this.myInjector = Injector.create({
-      providers: [{ 
-        provide: 'data', 
-        useValue: 'Données passées au composant dynamique' 
-      }],
+      providers: [
+        {
+          provide: 'data',
+          useValue: 'Données passées au composant dynamique'
+        }
+      ],
       parent: this.injector
-    });
+    })
     this.myContent = {
       SigninSuccess: (data: string) => {
-        alert ('salut grosse salope.');
+        alert('salut grosse salope.')
       }
-    };   
+    }
   }
 
   /**
    * @description:
    */
   public ngOnInit() {
-    this.bindQueryParams();
+    this.bindQueryParams()
   }
 
   /**
-   * @description:  
+   * @description:
    */
   private bindQueryParams() {
     this.route.queryParams.subscribe((response: any) => {
-      this.updateSwitch(response.switch);
-    });
-    const urlParams = new URLSearchParams(window.location.search);
-    let switch_name = urlParams.get('switch');
+      this.updateSwitch(response.switch)
+    })
+    const urlParams = new URLSearchParams(window.location.search)
+    let switch_name = urlParams.get('switch')
     if (switch_name === null) {
-      return;
+      return
     }
-    this.updateSwitch(switch_name);
+    this.updateSwitch(switch_name)
   }
 
   /**
-   * @description: 
+   * @description:
    */
-  private updateSwitch(switch_name: string | undefined ): void {
+  private updateSwitch(switch_name: string | undefined): void {
     if (switch_name === undefined) {
-      this.switch = "";
-      this.config = undefined;
-      return;
+      this.switch = ''
+      this.config = undefined
+      return
     }
-    this.switch = switch_name;
-    this.config = this.switchModalService.get_config(switch_name);
+    this.switch = switch_name
+    this.config = this.switchModalService.get_config(switch_name)
     this.myInjector = Injector.create({
-      providers: [{ 
-        provide: 'data', 
-        useValue: 'Données passées au composant dynamique' 
-      }],
+      providers: [
+        {
+          provide: 'data',
+          useValue: 'Données passées au composant dynamique'
+        }
+      ],
       parent: this.injector
-    });
+    })
     this.myContent = {
       SigninSuccess: (data: string) => {
-        alert ('salut grosse salope.');
+        alert('salut grosse salope.')
       }
-    };
+    }
   }
 
   /*
    * @description:
    */
   public openedLink(switchKey: string): boolean {
-    return this.switch === switchKey;
+    return this.switch === switchKey
   }
 
   /**
    * @description:
    */
   public close(): void {
-    this.switch = "";
+    this.switch = ''
   }
 
   /**
    * @description:
    */
   public clickToViewContainer($event: any): void {
-    $event.stopPropagation();
+    $event.stopPropagation()
   }
 
   /**
@@ -139,25 +143,25 @@ export class SwitchModalComponent {
       this.component.switchModal__eventClose !== undefined
     ) {
       if (!this.component.switchModal__eventClose()) {
-        return;
+        return
       }
     }
     setTimeout(() => {
-      this.switchModalService.close();
-    }, 200);
+      this.switchModalService.close()
+    }, 200)
   }
 
   /**
    * @description:
    */
   public init($event: any): void {
-    this.component = $event;
+    this.component = $event
   }
 
   /**
-   * @description: 
+   * @description:
    */
   public SigninSuccess(): void {
-    alert ('aoeuaoeu');
+    alert('aoeuaoeu')
   }
 }

@@ -1,117 +1,106 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { ModalConfig } from '../types';
+import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
+import { ModalConfig } from '../types'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SwitchModalService {
-
   /**
-   * @description:   
+   * @description:
    */
-  private config_list: Array<ModalConfig> = [];
+  private config_list: Array<ModalConfig> = []
 
-  constructor(
-    public router: Router,
-  ) {
-
-  }
+  constructor(public router: Router) {}
 
   /*
-  * @description: Recuperer le nom dans l'url.
-  */
+   * @description: Recuperer le nom dans l'url.
+   */
   public get_switch_name() {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(`switch`);
+    const url = new URL(window.location.href)
+    return url.searchParams.get(`switch`)
   }
 
   /*
-  * @description: Get the good params.
-  */
-
+   * @description: Get the good params.
+   */
 
   /*
-  * @description:
-  */
+   * @description:
+   */
   public open_modal(name: string | undefined, params: any = {}) {
     if (name !== undefined) {
-      params.switch = name;
+      params.switch = name
     }
 
-    this.router.navigate(
-      [],
-      {
-        queryParams: params
-      }
-    );
+    this.router.navigate([], {
+      queryParams: params
+    })
   }
 
   /*
-  * @description:
-  */
+   * @description:
+   */
   public close(params: any = {}) {
-    this.open_modal(undefined, params);
+    this.open_modal(undefined, params)
   }
 
   /*
-  * @description:
-  */
+   * @description:
+   */
   public open_help(hash: string): void {
-      this.open_modal(`info_curbapp_manifest_create`);
+    this.open_modal(`info_curbapp_manifest_create`)
   }
 
   /**
    * @description:
    */
   public clickWhiteContainer($event: any): void {
-    $event.stopPropagation();
+    $event.stopPropagation()
   }
 
   /**
    * @description:
    */
   public has_in_switchmodal(): boolean {
-    return this.get_switch_name() !== null;
+    return this.get_switch_name() !== null
   }
-
 
   /**
    * @description:
    */
   public set_config(config: ModalConfig): void {
     if (this.config_exists(config.name)) {
-      return; 
+      return
     }
-    this.config_list.push(config);
+    this.config_list.push(config)
   }
 
   /**
-   * @description: 
+   * @description:
    */
   public set_config_list(config_list: Array<ModalConfig>): void {
     for (const config of config_list) {
-      this.set_config(config);
+      this.set_config(config)
     }
-    
   }
 
   /**
-   * @description: 
+   * @description:
    */
   public get_config(config_name: string): ModalConfig | undefined {
     for (const config of this.config_list) {
       if (config.name === config_name) {
-        return config;
+        return config
       }
     }
-    return undefined;
-  } 
+    return undefined
+  }
 
   /**
    * @description:
    */
   public config_exists(config_name: string): boolean {
-    return this.get_config(config_name) !== undefined;
+    return this.get_config(config_name) !== undefined
   }
 }
