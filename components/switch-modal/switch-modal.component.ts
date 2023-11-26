@@ -29,7 +29,7 @@ export class SwitchModalComponent {
    */
   public myContent: any = {
     SigninSuccess: (data: string) => {
-      alert('salut grosse salope.')
+      alert('...')
     }
   }
 
@@ -59,7 +59,7 @@ export class SwitchModalComponent {
     })
     this.myContent = {
       SigninSuccess: (data: string) => {
-        alert('salut grosse salope.')
+        alert('...')
       }
     }
   }
